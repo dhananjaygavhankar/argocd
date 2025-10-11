@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todo-ui
-  namespace: argocd
+  namespace: argocdk8s
 spec:
   replicas: 2
   selector:
@@ -15,6 +15,77 @@ spec:
     spec:
       containers:
       - name: todo-ui
-        image: nginx
+        image: dhandhandhana15.azurecr.io/todofront:latest
         ports:
         - containerPort: 80
+
+...
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-add
+  namespace: argocdk8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      appa: todo-add
+  template:
+    metadata:
+      labels:
+        appa: todo-add
+    spec:
+      containers:
+      - name: todo-add
+        image: dhandhandhana15.azurecr.io/addtodo:v1
+        ports:
+        - containerPort: 8000
+
+
+...
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-get
+  namespace: argocdk8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      appg: todo-get
+  template:
+    metadata:
+      labels:
+        appg: todo-get
+    spec:
+      containers:
+      - name: todo-get
+        image: dhandhandhana15.azurecr.io/gettodo:v1
+        ports:
+        - containerPort: 8000
+
+...
+...
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-delete
+  namespace: argocdk8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      appd: todo-delete
+  template:
+    metadata:
+      labels:
+        appd: todo-delete
+    spec:
+      containers:
+      - name: todo-delete
+        image: dhandhandhana15.azurecr.io/delettodo:v1
+        ports:
+        - containerPort: 8000
